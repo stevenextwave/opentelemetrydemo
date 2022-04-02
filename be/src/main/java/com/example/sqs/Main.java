@@ -1,8 +1,14 @@
 package com.example.sqs;
 
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.*;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.amazonaws.services.sqs.model.AmazonSQSException;
+import com.amazonaws.services.sqs.model.CreateQueueResult;
+import com.amazonaws.services.sqs.model.Message;
+import com.amazonaws.services.sqs.model.SendMessageBatchRequest;
+import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -10,16 +16,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        SqsClient sqsClient = SqsClient.builder().build();
+        AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
         String queueUrl= args[0];
-        while ( true )
-        {
-            List<Message> messages = receiveMessages(sqsClient, queueUrl);
-            for (Message num : messages)
-            {
-                System.out.println(num.body());
-            }
-        }
+         // receive messages from the queue
+         List<Message> messages = sqs.receiveMessage(queueUrl).getMessages();
+
+         // delete messages from the queue
+         for (software.amazon.awssdk.services.sqs.model.Message m : messages) {
+             System.out.println(m.body());
+             sqs.deleteMessage(queueUrl, m.getReceiptHandle());
+         }
     }
 
 
