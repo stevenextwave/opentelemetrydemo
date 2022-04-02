@@ -41,7 +41,7 @@ module.exports.submit = (event, context, callback) => {
             callback(null, successResponseBuilder(
                 JSON.stringify({
                     message: `Sucessfully submitted candidate with email ${email}`,
-                    candidateId: res.id
+                    candidateId: candidate.id
                 }))
             );
         }
