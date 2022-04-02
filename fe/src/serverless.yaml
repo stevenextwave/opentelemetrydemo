@@ -4,7 +4,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs14.x
   environment:
     NODE_OPTIONS: --require lambda-wrapper
     sqs_url:
@@ -34,4 +34,4 @@ resources:
     SQSQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: ${self:custom.queueName}
+        QueueName: opentelemetrydemo
