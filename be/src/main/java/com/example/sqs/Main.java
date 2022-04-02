@@ -10,9 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+        SqsClient sqsClient = SqsClient.builder().build();
         String queueUrl= args[0];
         while ( true )
         {
