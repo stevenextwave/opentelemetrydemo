@@ -6,6 +6,7 @@ provider:
   name: aws
   runtime: nodejs4.3
   environment:
+    NODE_OPTIONS: --require lambda-wrapper
     sqs_url:
       Ref: SQSQueue
   iamRoleStatements:
